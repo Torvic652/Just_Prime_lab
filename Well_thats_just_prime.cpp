@@ -6,17 +6,16 @@ using namespace std;
 //calculates the prime factors of a given number
 class Factorizer {
 public:
-    vector<int> primefactors(int n) {
-        vector<int> factors; // Declare the vector inside the method
-
-        for (int i = 2; i <= n; i++) {
-            while (n % i == 0) {
-                factors.push_back(i);
-                n /= i;
-                cout << i << " x " << endl;
-            }
+    vector<int> primefactors(int n, int divisor = 2) {
+        if (n == 1) {
+            return {}; // Base case: no factors for 1
         }
-        return factors; // Return the vector of factors
+        if (n % divisor == 0) {
+            vector<int> factors = primefactors(n / divisor, divisor);
+            factors.insert(factors.begin(), divisor);
+            return factors;
+        }
+        return primefactors(n, divisor + 1);
     }
 };
 
@@ -25,6 +24,16 @@ int main() {
     int number;
     cout << "Enter a number to factor: ";
     cin >> number;
-    factorizer.primefactors(number); // Call the method correctly
+
+    // Call the method and store the result
+    vector<int> factors = factorizer.primefactors(number);
+
+    // Print the factors
+    cout << "Prime factors: ";
+    for (int factor : factors) {
+        cout << factor << " x ";
+    }
+    cout << endl;
+
     return 0;
 }
