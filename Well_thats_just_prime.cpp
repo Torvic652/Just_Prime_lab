@@ -13,7 +13,7 @@ public:
             while (n % i == 0) {
                 factors.push_back(i);
                 n /= i;
-                cout << i << " ";
+                cout << i << " x " << endl;
             }
         }
         return factors; // Return the vector of factors
